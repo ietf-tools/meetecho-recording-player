@@ -1,0 +1,45 @@
+@use "~/styles/_variables.scss" as *;
+
+.panel-chat-toggle {
+  display: none;
+}
+
+@media screen and (max-width: 1224px) {
+  .panel-chat-toggle {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-left: $padding--desktop;
+    transition: all 0.2s;
+    position: relative;
+  }
+
+  .panel-chat-toggle img {
+    width: 2rem;
+    height: 2rem;
+    cursor: pointer;
+  }
+
+  .panel-chat-toggle__tooltip {
+    opacity: 0;
+    position: absolute;
+    top: -2.2rem;
+    transition: all 0.2s;
+    width: 7rem;
+  }
+
+  .panel-chat-toggle img:hover + .panel-chat-toggle__tooltip {
+    opacity: 1;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .panel-chat-toggle__tooltip {
+    display: none;
+  }
+}
+
+/* Dark Mode */
+.App.theme--dark .panel-chat-toggle img {
+  filter: invert(100%);
+}

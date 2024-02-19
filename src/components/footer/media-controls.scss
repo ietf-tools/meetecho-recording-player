@@ -1,0 +1,154 @@
+@use "~/styles/_variables.scss" as *;
+
+.media-controls {
+  width: 100%;
+}
+
+.controls-wrapper {
+  text-align: center;
+  color: $color-white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+
+  .controls {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+}
+
+.play-pause-btn {
+  transition: all 0.2s;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-right: $padding--desktop;
+
+  img {
+    width: 2rem;
+    height: 2rem;
+    cursor: pointer;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .media-controls {
+    width: 100%;
+  }
+
+  .controls-wrapper .controls {
+    padding: 0;
+  }
+}
+
+/* PROGRESS BAR SLIDER */
+.progress-bar__wrapper {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
+.progress-bar__overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 999;
+  opacity: 0.7;
+}
+
+.progress-bar__overlay:hover {
+  cursor: pointer;
+}
+
+/* The slider itself */
+.progress-bar {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  height: 2rem;
+  background: $color-primary--light;
+  outline: none;
+  opacity: 0.7;
+  transition: opacity 0.2s;
+  border-radius: 4px;
+  position: relative;
+  padding: 0;
+}
+
+/* The slider handle (use -webkit- (Chrome, Opera, Safari, Edge) and -moz- (Firefox) to override default look) */
+.progress-bar::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 2rem;
+  height: 2rem;
+  background: $color-secondary--light;
+  cursor: pointer;
+  border-radius: 50%;
+}
+
+.progress-bar::-moz-range-thumb {
+  width: 25px;
+  height: 25px;
+  background: $color-secondary--light;
+  cursor: pointer;
+}
+
+.progress-bar__overlay:hover + .progress-bar {
+  opacity: 1;
+}
+
+.progress-bar__time {
+  position: absolute;
+  right: 1rem;
+  color: $color-white;
+}
+
+.progress-bar__tooltip {
+  opacity: 0;
+  position: absolute;
+  bottom: -2.2rem;
+  right: 0;
+  transition: all 0.2s;
+}
+
+.progress-bar__wrapper:hover .progress-bar__tooltip {
+  opacity: 1;
+}
+
+@media screen and (max-width: 968px) {
+  .progress-bar__tooltip {
+    display: none;
+  }
+
+  .progress-bar__wrapper:hover .progress-bar__tooltip {
+    display: none;
+  }
+}
+
+/* DARK MODE */
+.App.theme--dark .play-pause-btn svg {
+  color: $light-theme--element-bg;
+}
+
+.App.theme--dark .progress-bar {
+  background: $light-theme--element-bg;
+}
+
+.App.theme--dark .progress-bar::-webkit-slider-thumb {
+  background: $dark-theme--element-bg;
+}
+
+.App.theme--dark .play-pause-btn img {
+  filter: invert(100%);
+}
+
+.App.theme--dark .progress-bar__time {
+  color: $color-black;
+}

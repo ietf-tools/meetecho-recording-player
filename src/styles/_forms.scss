@@ -1,0 +1,242 @@
+@use "_variables.scss" as *;
+
+// Single Line Inputs
+.input-wrapper {
+  display: flex;
+  justify-content: center;
+
+  &__input {
+    width: 100%;
+    height: 3rem;
+    padding: $padding--desktop;
+    border: $border-light;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+    border-top-left-radius: 4px;
+    border-bottom-left-radius: 4px;
+    transition: all 0.2s ease-in-out;
+
+    &:focus,
+    &:active,
+    &:visited {
+      color: $color-white;
+      border-color: $color-primary--light;
+      outline: 0;
+      background-color: transparentize(
+        $color: $color-primary--light,
+        $amount: 0.4
+      );
+
+      &::placeholder {
+        color: white;
+      }
+    }
+
+    &--rounded {
+      border-radius: 4px;
+    }
+  }
+
+  &__icon-btn {
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: $padding--desktop;
+    background-color: $color-primary--light;
+    color: $color-white;
+    border: $border-light;
+    border-top-right-radius: 4px;
+    border-bottom-right-radius: 4px;
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+    // position relative to position the password toggler to its left
+    position: relative;
+    transition: all 0.2s ease-in-out;
+
+    &:hover {
+      background-color: $color-primary--light--hover;
+      border: $border-light--hover;
+    }
+
+    &--delete {
+      background-color: red;
+      border: 2px solid red;
+      color: $color-white;
+      border-radius: 4px;
+      width: 100%;
+      margin: $padding--desktop 0;
+      font-weight: 700;
+
+      &:hover {
+        background-color: $color-white;
+        border: 2px solid red;
+        color: red;
+      }
+    }
+  }
+}
+
+// Checkboxes
+.checkbox-wrapper {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  align-self: self-start;
+
+  &__checkbox {
+    -webkit-appearance: none;
+    background-color: #fafafa;
+    border: $border-light;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05),
+      inset 0px -15px 10px -12px rgba(0, 0, 0, 0.05);
+    padding: 0.4rem;
+    border-radius: 4px;
+    display: inline-block;
+    position: relative;
+    transition: all 0.1s ease-in-out;
+    cursor: pointer;
+
+    &:checked {
+      background-color: $color-primary--light;
+      color: $color-white;
+    }
+
+    &:checked:after {
+      content: "X";
+      font-size: 0.9rem;
+      position: absolute;
+      margin-left: auto;
+      margin-right: auto;
+      margin-top: auto;
+      margin-bottom: auto;
+      left: 0;
+      right: 0;
+      top: -2px;
+      bottom: 0;
+      text-align: center;
+    }
+  }
+
+  &__label {
+    padding-left: 0.3rem;
+    font-size: 1rem;
+  }
+}
+
+// Toggler Wrapper
+.toggle-switch-wrapper {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  align-self: self-start;
+
+  &__label {
+    padding-left: 0.3rem;
+    font-size: 1rem;
+  }
+}
+
+// Select
+.select-wrapper {
+  position: relative;
+  display: flex;
+  height: 3rem;
+  line-height: 3;
+  background: $color-white;
+  overflow: hidden;
+  border-radius: 4px;
+  border: none;
+  outline: none;
+
+  &::after {
+    content: "\25BC";
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding: 0 1em;
+    background: $color-primary--light;
+    color: $color-white;
+    cursor: pointer;
+    pointer-events: none;
+    transition: 0.25s all ease;
+  }
+
+  &:hover::after {
+    background-color: $color-primary--light--hover;
+  }
+
+  &__select {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    -ms-appearance: none;
+    appearance: none;
+    outline: 0;
+    box-shadow: none;
+    border: 2px solid #032e50;
+    background-image: none;
+    flex: 1 1;
+    padding: 0.7rem;
+    cursor: pointer;
+    outline: none;
+    border-radius: 4px;
+
+    &::-ms-expand {
+      display: none;
+    }
+  }
+}
+
+// Dark Theme
+.room-opened.theme--dark {
+  .input-wrapper {
+    &__input {
+      border: 2px solid $dark-theme--text;
+
+      &:focus,
+      &:active,
+      &:visited {
+        color: $dark-theme--text;
+        border-color: $dark-theme--text;
+        background-color: transparentize(
+          $color: $dark-theme--element-bg,
+          $amount: 0.2
+        );
+
+        &::placeholder {
+          color: $dark-theme--text;
+        }
+      }
+    }
+    &__icon-btn {
+      background-color: $dark-theme--bg;
+      color: $dark-theme--text;
+      border: 2px solid $dark-theme--text;
+
+      &:hover {
+        background-color: lighten($dark-theme--bg, 5%);
+        border: 2px solid $dark-theme--text;
+      }
+      &--delete {
+        background-color: red;
+        border: 2px solid red;
+        color: $color-white;
+
+        &:hover {
+          background-color: $color-white;
+          border: 2px solid red;
+          color: red;
+        }
+      }
+    }
+  }
+
+  .checkbox-wrapper {
+    &__checkbox {
+      border: $border-dark;
+    }
+  }
+}

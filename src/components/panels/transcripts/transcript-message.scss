@@ -1,0 +1,97 @@
+@use "~/styles/_variables.scss" as *;
+
+.transcript {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  background-color: $light-theme--element-bg;
+  text-align: left;
+  gap: $padding--desktop;
+  border-radius: 4px;
+  padding: $padding--desktop;
+  margin-bottom: 1rem;
+  transition: all 0.2s ease-in-out;
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+
+  &__header {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  &__index {
+    font-weight: 700;
+    font-size: 1rem;
+  }
+
+  // &__time h4 {
+  //   margin: 0;
+  // }
+
+  &__btn {
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: $color-primary--light;
+    border: $border-light;
+    border-radius: 4px;
+    margin-bottom: 0;
+    padding: 0;
+    color: $color-white;
+    font-weight: 700;
+    transition: all 0.2s ease-in-out;
+    position: relative;
+
+    &:hover {
+      background-color: $color-primary--light--hover;
+      border: $border-light--hover;
+    }
+
+    svg {
+      height: 1.5rem;
+      width: 1.5rem;
+    }
+  }
+
+  &__tooltip {
+    opacity: 0;
+    position: absolute;
+    bottom: -3rem;
+    right: 0;
+    transition: all 0.2s;
+  }
+
+  &__text {
+    p {
+      text-align: left;
+      margin: 0;
+      word-break: break-word;
+    }
+  }
+}
+
+.transcript__btn:hover .transcript__tooltip {
+  opacity: 1;
+}
+
+// @media screen and (max-width: 996px) {
+//   .transcript {
+
+//   }
+// }
+
+/* DARK MODE */
+.App.theme--dark .transcript {
+  background-color: $dark-theme--element-bg;
+  color: $light-theme--element-bg;
+
+  &__btn {
+    background-color: $dark-theme--bg;
+    border: 2px solid $color-white;
+  }
+}

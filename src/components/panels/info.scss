@@ -1,0 +1,40 @@
+@use "~/styles/_variables.scss" as *;
+
+.Info {
+  background-color: $color-white;
+  padding: $padding--desktop;
+}
+
+.panel {
+  &__info {
+    display: flex;
+    flex-direction: column;
+    padding: 1rem;
+    text-align: left;
+    border-radius: 4px;
+    background-color: rgb(241, 241, 241);
+
+    p {
+      margin: 0;
+      padding-top: 0;
+    }
+
+    &__title {
+      font-weight: 700;
+      margin: 0 0 $padding--desktop;
+      padding: 0;
+    }
+  }
+}
+
+/* DARK MODE */
+.App.theme--dark .Info {
+  background-color: $dark-theme--bg;
+  color: $light-theme--element-bg;
+
+  .panel {
+    &__info {
+      background-color: $dark-theme--element-bg;
+    }
+  }
+}

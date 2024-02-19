@@ -1,0 +1,25 @@
+@use "_variables.scss" as *;
+
+.Toastify {
+  &__toast-container {
+    position: absolute;
+    padding: 0;
+
+    &--bottom-right {
+      bottom: 0;
+      right: 0;
+    }
+  }
+
+  &__toast-theme--light {
+    color: $color-black;
+    border: $border-light;
+    padding: $padding--desktop;
+    margin-right: 1rem;
+    background-color: $color-white;
+  }
+
+  &__toast-body {
+    padding: 0;
+  }
+}

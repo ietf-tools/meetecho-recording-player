@@ -1,0 +1,281 @@
+@use "styles/index";
+@use "styles/_variables.scss" as *;
+
+.App {
+  background: linear-gradient(
+    90deg,
+    $color-primary--light 0%,
+    $color-secondary--light 100%
+  );
+}
+
+/* MAIN LAYOUT */
+.main-container {
+  height: 100dvb;
+  width: 85%;
+  padding: 1rem;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 0.7fr 0.3fr;
+  grid-template-rows: 0.1fr auto 1fr;
+  gap: 1rem;
+  grid-auto-flow: row;
+  grid-template-areas:
+    "LeftSide Footer"
+    "LeftSide Chat"
+    "LeftSide Chat";
+}
+
+.Left-Side {
+  grid-area: LeftSide;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.Video {
+  grid-area: Video;
+}
+
+.Chat {
+  grid-area: Chat;
+}
+
+.Panels {
+  grid-area: Panels;
+  flex: 1;
+}
+
+.Footer {
+  grid-area: Footer;
+}
+
+.document-title {
+  display: none;
+}
+
+/* TABLET & MOBILE PORTRAIT MODE */
+@media screen and (max-width: 1224px) {
+  .main-container {
+    grid-template-columns: 0.5fr 0.5fr;
+    grid-template-rows: 0.1fr auto 1fr;
+    width: 100%;
+  }
+
+  .video-wrapper {
+    position: sticky;
+    top: 0;
+    left: 0;
+    width: 100%;
+  }
+
+  .d-none {
+    display: none;
+  }
+
+  .d-unset {
+    display: unset;
+  }
+
+  .show--panels {
+    grid-template-areas:
+      "Footer Footer"
+      "Video Video"
+      "Panels Panels";
+  }
+
+  .show--chat {
+    grid-template-areas:
+      "Footer Footer"
+      "Video Video"
+      "Chat Chat";
+  }
+
+  .Footer {
+    padding-top: 1rem;
+  }
+}
+
+/* MOBILE ONLY PORTRAIT MODE */
+@media screen and (max-width: 968px) {
+  .main-container {
+    grid-template-columns: 0.5fr 0.5fr;
+    grid-template-rows: 0.1fr auto 1fr;
+    width: 100%;
+    padding: 0.5rem;
+    gap: 0.5rem;
+  }
+}
+
+/* MOBILE & TABLET LANDSCAPE MODE */
+@media screen and (orientation: landscape) and (max-device-width: 1224px) {
+  .main-container {
+    height: 100dvb;
+    width: 100dvi;
+    padding: 0;
+    gap: 0rem;
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr;
+    grid-template-areas: "Video";
+    overflow: hidden;
+  }
+
+  .video-wrapper {
+    height: 100%;
+  }
+
+  .Panels,
+  .Chat,
+  .Footer {
+    display: none !important;
+  }
+}
+
+/* MOBILE ONLY LANDSCAPE MODE */
+@media screen and (orientation: landscape) and (min-device-width: 319px) and (max-device-width: 968px) {
+  .main-container {
+    height: 100dvb;
+    width: 100%;
+    padding: 0;
+    gap: 0rem;
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr;
+    grid-template-areas: "Video";
+    overflow: hidden;
+  }
+
+  .video-wrapper {
+    height: 100% !important;
+    padding-bottom: 0px !important; /*was initial*/
+    position: relative !important; /*was initial*/
+  }
+}
+
+/* LOADING AND ERROR HANDLING */
+.error,
+.loading {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  z-index: 100;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+
+  h1 {
+    padding: 2rem;
+    font-weight: 700;
+    font-size: 2rem;
+    border-radius: 4px;
+    color: $color-white;
+  }
+}
+
+.loading {
+  background-color: $color-primary--light;
+
+  h1 {
+    background-color: var(--color-secondary);
+  }
+}
+
+.error {
+  background-color: grey;
+
+  h1 {
+    background-color: red;
+  }
+}
+
+/* SECTIONS CLASSES */
+.section--wrapper {
+  border-radius: 4px;
+}
+
+.section--title {
+  font-size: 2rem;
+  font-weight: 700;
+  text-align: center;
+  margin: 0 0 $padding--desktop;
+}
+
+@media screen and (max-width: 1224px) {
+  .section--title {
+    font-size: 1.6rem;
+  }
+}
+
+/* SCROLL BARS: https://codepen.io/devstreak/pen/dMYgeO */
+::-webkit-scrollbar {
+  width: 1rem;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: $light-theme--element-bg;
+  border-radius: 0.5rem;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  border-radius: 0.5rem;
+  background: #a5a5a5;
+  transition: all 0.2s;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #818181;
+}
+
+/* HELPER CLASSES */
+.tooltip {
+  font-size: 0.8rem;
+  font-weight: 700;
+  text-align: center;
+  color: #212529;
+  background-color: $light-theme--element-bg;
+  padding: 0.2rem 0.5rem;
+  border-radius: 4px;
+  border: 2px solid #212529;
+}
+
+/* DARK MODE */
+.App.theme--dark {
+  background-color: $dark-theme--element-bg;
+}
+
+.App.theme--dark .section--title {
+  color: $light-theme--element-bg;
+}
+
+.App.theme--dark .tooltip {
+  color: $light-theme--element-bg;
+  background-color: #212529;
+  border: 2px solid $light-theme--element-bg;
+}
+
+/* .App.theme--dark ::-webkit-scrollbar-thumb {
+  background: var(--color-secondary);
+}
+
+.App.theme--dark ::-webkit-scrollbar-thumb:hover {
+  background: var(--color-secondary);
+}
+ */
+
+/* Bootstrap 5 Media Breakpoints
+
+  xs: 0,
+  sm: 576px,
+  md: 768px,
+  lg: 992px,
+  xl: 1200px,
+  xxl: 1400px
+
+*/

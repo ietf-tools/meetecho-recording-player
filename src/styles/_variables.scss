@@ -1,0 +1,34 @@
+/* VARIABLES */
+$color-black: #141414;
+$color-white: #fdfdfd;
+$color-red: #fa0202;
+$color-red--hover: #f95050;
+$color-gray--light-1: #e8e8e8;
+$color-gray--light-2: #d3d3d3;
+
+$color-primary--light: #032e50;
+$color-primary--light--hover: lighten($color-primary--light, 10%);
+$color-primary--light--lighter: #032e5094;
+$color-primary--dark: darken($color-primary--light, 10%);
+$color-secondary--light: #0071bc;
+
+$light-theme--element-bg: #f1f1f1;
+$light-theme--element-bg--darker: #e0e0e0;
+$light-theme--darkest-gray: #9f9f9f;
+
+$dark-theme--bg: #2a2a2a;
+$dark-theme--text: #f1f1f1;
+$dark-theme--element-bg: #5e5e5e;
+$dark-theme--element-bg--darker: #444444;
+
+$dark-theme--color-primary--light: darken($color-primary--light, 15%);
+$dark-theme--color-secondary--light: darken($color-secondary--light, 15%);
+
+$padding--desktop: 0.7rem;
+
+$icon-size--mobile: 1.2em;
+$icon-size--desktop: 1.5em;
+
+$border-light: 2px solid $color-primary--light;
+$border-light--hover: 2px solid $color-primary--light--hover;
+$border-dark: 2px solid $color-white;

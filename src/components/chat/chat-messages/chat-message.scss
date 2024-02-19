@@ -1,0 +1,87 @@
+@use "~/styles/_variables.scss" as *;
+
+.chat-message {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  text-align: left;
+  border-radius: 4px;
+  padding: $padding--desktop;
+  margin-bottom: $padding--desktop;
+  background-color: $light-theme--element-bg;
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+
+  &__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  &__author {
+    font-size: 1rem;
+    font-weight: 700;
+    margin: 0;
+  }
+
+  &__time {
+    font-size: 0.9em;
+    padding: 0;
+    margin: 0;
+    color: rgb(34, 34, 34);
+  }
+
+  &__text__inner {
+    max-width: 100%;
+    word-break: break-word;
+
+    p {
+      margin-block-start: 0px;
+      margin-block-end: 0px;
+    }
+
+    ul {
+      margin-block-start: 0.5rem;
+      padding-inline-start: $padding--desktop;
+    }
+
+    blockquote {
+      margin-block-start: 0.5rem;
+      margin-block-end: 0.5rem;
+      margin-inline-start: $padding--desktop;
+      margin-inline-end: $padding--desktop;
+      font-style: oblique;
+    }
+  }
+
+  .message_inline_image {
+    width: 100%;
+    height: 100%;
+  }
+
+  .message_inline_image a {
+    width: 100%;
+    height: 100%;
+  }
+
+  .message_inline_image a img {
+    width: 100%;
+    height: 100%;
+  }
+}
+
+/* DARK MODE */
+.App.theme--dark .chat-message {
+  background-color: $dark-theme--element-bg;
+  color: $light-theme--element-bg;
+
+  &__time {
+    color: $light-theme--element-bg;
+  }
+
+  &__text a {
+    color: $light-theme--element-bg;
+  }
+}

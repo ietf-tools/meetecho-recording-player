@@ -1,0 +1,12 @@
+@use "~/styles/_variables.scss" as *;
+
+.Polls {
+  padding: $padding--desktop;
+  background-color: $color-white;
+}
+
+/* DARK MODE */
+.App.theme--dark .Polls {
+  background-color: $dark-theme--bg;
+  color: $light-theme--element-bg;
+}

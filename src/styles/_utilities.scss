@@ -1,0 +1,92 @@
+@use "_variables.scss" as *;
+
+.with-borders {
+  border-radius: 4px;
+}
+
+.d-flex {
+  display: flex;
+}
+
+// .d-none {
+//   display: none;
+// }
+
+// .tooltip {
+//   position: relative;
+//   pointer-events: auto;
+//   text-transform: capitalize;
+
+//   &::before {
+//     display: none;
+//     position: absolute;
+//     font-size: 0.8rem;
+//     font-weight: 700;
+//     background-color: $color-white;
+//     width: max-content;
+//     border: $border-light;
+//     border-radius: 4px;
+//     color: $color-black;
+//     content: attr(data-title);
+//     padding: 0.4rem;
+//     z-index: 1;
+//     transition: opacity 0.2s ease-in-out;
+//   }
+
+//   &:hover::before {
+//     display: block;
+//   }
+
+//   &--top {
+//     &::before {
+//       top: 2.8rem;
+//       left: 50%;
+//       transform: translate(-50%);
+//       text-align: center;
+//     }
+//   }
+
+//   &--bottom {
+//     &::before {
+//       bottom: 2.8rem;
+//       left: 50%;
+//       transform: translate(-50%);
+//       text-align: center;
+//     }
+//   }
+
+//   &--bottom-right {
+//     &::before {
+//       top: 2rem;
+//       right: 0;
+//     }
+//   }
+
+//   &--bottom-left {
+//     &::before {
+//       top: 2rem;
+//       left: 0;
+//     }
+//   }
+
+//   &--right {
+//     &::before {
+//       left: 3rem;
+//     }
+//   }
+
+//   &--left {
+//     &::before {
+//       right: 3rem;
+//     }
+//   }
+// }
+
+/* DARK MODE */
+.room-opened.theme--dark {
+  .tooltip {
+    &::before {
+      border: $border-dark;
+    }
+  }
+}

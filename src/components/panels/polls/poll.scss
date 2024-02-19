@@ -1,0 +1,68 @@
+@use "~/styles/_variables.scss" as *;
+
+.poll {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  border-radius: 4px;
+  transition: all 0.3s;
+  text-align: left;
+  gap: $padding--desktop;
+  padding: $padding--desktop;
+  margin-bottom: $padding--desktop;
+  transition: all 0.3s;
+  background-color: rgb(241, 241, 241);
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+
+  &__header {
+    display: flex;
+    flex-direction: row;
+    padding-bottom: $padding--desktop;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  &__title {
+    font-weight: 700;
+    text-transform: capitalize;
+    margin: 0;
+    padding: 0;
+  }
+
+  &__question {
+    text-transform: capitalize;
+  }
+
+  &__time h4 {
+    margin: 0;
+  }
+
+  &__text p {
+    text-align: left;
+    margin: 0;
+    word-break: break-word;
+  }
+}
+
+// @media screen and (max-width: 996px) {
+
+// }
+
+/* DARK MODE */
+.App.theme--dark .poll {
+  background-color: $dark-theme--element-bg;
+  color: $light-theme--element-bg;
+}
+
+.App.theme--dark .poll__btn {
+  background: $light-theme--element-bg;
+  color: black;
+  opacity: 0.7;
+
+  &:hover {
+    opacity: 1;
+  }
+}

@@ -1,0 +1,102 @@
+@use "~/styles/_variables.scss" as *;
+
+$progress-bar-height: 0.8rem;
+$progress-bar-bg-color: #959595;
+
+.poll-results-list {
+  display: flex;
+  flex-direction: column;
+  gap: $padding--desktop;
+}
+
+.poll-results {
+  position: relative;
+  overflow-x: hidden;
+  order: 10;
+  font-weight: 400;
+  justify-content: space-between;
+
+  &::before {
+    width: 100%;
+    height: $progress-bar-height;
+    content: "";
+    display: block;
+    position: absolute;
+    background: $progress-bar-bg-color;
+    bottom: 0;
+    border-radius: 4px;
+  }
+
+  &__data {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    padding-bottom: 0.4rem;
+  }
+
+  &__percentage {
+    font-weight: inherit;
+    text-align: center;
+    flex: 1;
+  }
+
+  &__count {
+    font-weight: inherit;
+    text-align: end;
+    flex: 1;
+  }
+
+  &__vote {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    margin: 0;
+    padding: 0;
+    flex: 1;
+
+    svg {
+      color: $color-primary--light;
+      height: 1.5rem;
+      width: 1.5rem;
+    }
+  }
+
+  &__bar {
+    height: $progress-bar-height;
+    background: $color-primary--light;
+    display: block;
+    position: relative;
+    right: 0;
+    border-radius: 4px;
+  }
+
+  // Most Voted Option
+  &--top {
+    order: 1;
+    font-weight: 700;
+  }
+}
+
+// Calculate progress bar width from percentage
+@for $i from 0 through 100 {
+  [data-percentage="#{$i}"] {
+    width: ($i * 1%);
+  }
+}
+
+// Dark Theme
+.App.theme--dark {
+  .poll-results {
+    color: $dark-theme--text;
+
+    &__bar {
+      background: $dark-theme--text;
+    }
+
+    &__vote {
+      svg {
+        color: $color-white;
+      }
+    }
+  }
+}

@@ -1,0 +1,12 @@
+@use "~/styles/_variables.scss" as *;
+
+.Transcripts {
+  padding: $padding--desktop;
+  background-color: $color-white;
+}
+
+/* DARK MODE */
+.App.theme--dark .Transcripts {
+  background-color: $dark-theme--bg;
+  color: $light-theme--element-bg;
+}

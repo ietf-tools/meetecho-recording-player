@@ -1,0 +1,138 @@
+@use "_variables.scss" as *;
+
+// BUTTON AS ICON
+.btn-icon {
+  color: $color-primary--light;
+  background-color: $color-white;
+  border-style: none;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border-radius: 4px;
+  padding: 0.3rem;
+  transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
+
+  a {
+    text-decoration: none;
+    color: inherit;
+  }
+
+  p {
+    font-size: 1rem;
+  }
+
+  img {
+    width: $icon-size--mobile;
+    height: $icon-size--mobile;
+    border-radius: 4px;
+  }
+
+  svg {
+    width: $icon-size--mobile;
+    height: $icon-size--mobile;
+  }
+
+  &.active,
+  &:hover {
+    cursor: pointer;
+    color: $color-white;
+    background-color: $color-primary--light;
+    transition: all 0.2s ease-in-out;
+  }
+}
+
+// FULL WIDTH BUTTON
+.btn-full-width {
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: $padding--desktop;
+  border: $border-light;
+  border-radius: 4px;
+  margin-bottom: 0;
+  background-color: $color-primary--light;
+  color: $color-white;
+  font-weight: 700;
+  transition: all 0.2s ease-in-out;
+
+  &:hover {
+    background-color: $color-primary--light--hover;
+    border: $border-light--hover;
+  }
+}
+
+// MEDIA QUERIES
+@media only screen and (min-width: 920px) {
+  .btn-icon {
+    img {
+      width: $icon-size--desktop;
+      height: $icon-size--desktop;
+    }
+
+    svg {
+      width: $icon-size--desktop;
+      height: $icon-size--desktop;
+    }
+  }
+}
+
+// Square Button
+
+.btn-square {
+  cursor: pointer;
+  display: flex;
+  align-self: center;
+  justify-content: center;
+  align-items: center;
+  padding: $padding--desktop;
+  background-color: $color-primary--light;
+  color: $color-white;
+  border: $border-light;
+  border-radius: 4px;
+  transition: all 0.2s ease-in-out;
+
+  &:hover {
+    background-color: $color-primary--light--hover;
+    border: $border-light--hover;
+  }
+}
+
+// DARK MODE
+.room-opened.theme--dark {
+  // BUTTON ICON
+  .btn-icon {
+    background-color: $dark-theme--bg;
+    color: $color-white;
+    &.active,
+    &:hover {
+      color: $color-primary--light;
+      background-color: $color-white;
+    }
+  }
+
+  // FULL WIDTH BUTTON
+  .btn-full-width {
+    background-color: $dark-theme--element-bg;
+    border: 2px solid $dark-theme--text;
+
+    &:hover {
+      background-color: $dark-theme--text;
+      color: $dark-theme--bg;
+      border: 2px solid $dark-theme--text;
+    }
+  }
+
+  .btn-square {
+    background-color: $dark-theme--element-bg;
+    border: 2px solid $dark-theme--text;
+    color: $dark-theme--text;
+
+    &:hover {
+      background-color: $dark-theme--text;
+      color: $dark-theme--bg;
+      border: 2px solid $dark-theme--text;
+    }
+  }
+}

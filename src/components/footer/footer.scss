@@ -1,0 +1,16 @@
+@use "~/styles/_variables.scss" as *;
+
+.Footer {
+  background-color: $color-white;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  padding: $padding--desktop;
+  position: relative;
+}
+
+/* DARK MODE */
+.App.theme--dark .Footer {
+  background-color: $dark-theme--bg;
+}
