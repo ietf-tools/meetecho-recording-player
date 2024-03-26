@@ -14,12 +14,12 @@ function Panels({
   showChat,
   handleCurrentTime,
   seekTo,
-  data,
+  data = {},
   currentTime,
   handleScrollVideoIntoView,
 }) {
   // Storing the available panels into a variable
-  const panelsAvailable = data.panels;
+  const panelsAvailable = data.panels ?? [];
 
   // Create a function that iterates and switch panel depending on the "type" property, it will return the JSX code to render
   const switchPanels = () => {
