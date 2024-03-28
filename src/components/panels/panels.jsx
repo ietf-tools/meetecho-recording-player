@@ -99,7 +99,11 @@ function Panels({
       <Tabs>
         <TabList>
           {panelsAvailable.map((panel, i) => {
-            return <Tab key={i}>{panel.title}</Tab>;
+            return (
+              <Tab key={i}>
+                {panel.title === "Show of hands" ? "Polls" : panel.title}
+              </Tab>
+            );
           })}
         </TabList>
 
