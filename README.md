@@ -6,6 +6,11 @@ Player for Meetecho recordings, which integrate video from meeting sessions (via
 ## Build the app
 
 In the project directory, you can run:
+#### `npm install`
+
+Install dependencies.
+
+
 ##### `npm start`
 
 Runs the app in the development mode.
