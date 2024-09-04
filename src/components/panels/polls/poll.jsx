@@ -1,4 +1,5 @@
 import { useSelector } from "react-redux";
+import { useTranslation } from "react-i18next";
 
 import PollResults from "./poll-results";
 import PollTime from "./poll-time";
@@ -8,6 +9,7 @@ import "./poll.scss";
 
 const Poll = ({ seekTo, handleScrollVideoIntoView }) => {
   const pollsData = useSelector((state) => state.pollsData.polls);
+  const { t } = useTranslation();
 
   return (
     <>
@@ -27,6 +29,12 @@ const Poll = ({ seekTo, handleScrollVideoIntoView }) => {
                   handleScrollVideoIntoView={handleScrollVideoIntoView}
                 />
               </div>
+
+              <div className="poll__subtitle">
+                <h6 className="poll__totals">{t("str_totalParticipants", "Total Participants")}: {poll.totals}</h6>
+              </div>
+
+              <div className="poll__separator"></div>
 
               <PollResults pollResults={poll.results} />
             </div>

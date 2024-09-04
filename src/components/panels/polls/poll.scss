@@ -20,7 +20,6 @@
   &__header {
     display: flex;
     flex-direction: row;
-    padding-bottom: $padding--desktop;
     align-items: center;
     justify-content: space-between;
   }
@@ -28,8 +27,23 @@
   &__title {
     font-weight: 700;
     text-transform: capitalize;
-    margin: 0;
-    padding: 0;
+    line-height: 1.2;
+    padding-right: $padding--desktop;
+  }
+
+  &__subtitle {
+    padding-bottom: $padding--desktop;
+  }
+
+  &__totals {
+    font-size: 0.9rem;
+    font-weight: bold;
+    color: $light-theme--darkest-gray;
+  }
+
+  &__separator {
+    border-top: 2px solid $color-gray--light-1;
+    padding-bottom: $padding--desktop;
   }
 
   &__question {
@@ -46,10 +60,6 @@
     word-break: break-word;
   }
 }
-
-// @media screen and (max-width: 996px) {
-
-// }
 
 /* DARK MODE */
 .App.theme--dark .poll {
