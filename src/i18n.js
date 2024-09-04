@@ -31,7 +31,7 @@ i18next
           str_no: "No",
           str_noOpinion: "No Opinion",
           str_transcriptsUnavailable: "Transcripts not available",
-          str_totalParticipants: "Total Participants",
+          str_totalParticipants: "Present when poll closed",
         },
       },
     },
