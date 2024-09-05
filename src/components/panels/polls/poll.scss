@@ -62,17 +62,23 @@
 }
 
 /* DARK MODE */
-.App.theme--dark .poll {
-  background-color: $dark-theme--element-bg;
-  color: $light-theme--element-bg;
-}
+.App.theme--dark {
+  .poll {
+    background-color: $dark-theme--element-bg;
+    color: $light-theme--element-bg;
 
-.App.theme--dark .poll__btn {
-  background: $light-theme--element-bg;
-  color: black;
-  opacity: 0.7;
+    &__btn {
+      background: $light-theme--element-bg;
+      color: black;
+      opacity: 0.7;
 
-  &:hover {
-    opacity: 1;
+      &:hover {
+        opacity: 1;
+      }
+    }
+
+    &__totals {
+      color: $light-theme--element-bg;
+    }
   }
 }
