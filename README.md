@@ -121,3 +121,18 @@ The application will try to fetch the following JSON files:
 - `transcripts/IETF112-DISPATCH-20211108-1200`
 
 - `polls/IETF112-DISPATCH-20211108-1200`
+
+
+---
+## Cloudflare Worker
+Cloudflare woker soruce sits under `worker` directory.
+
+To run locally (from `worker/`):
+```
+npx wrangler dev
+```
+
+To deploy the cloudflare worker:
+```
+npx wrangler deploy
+```
