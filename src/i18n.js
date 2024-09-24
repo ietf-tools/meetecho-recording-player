@@ -12,7 +12,7 @@ i18next
       en: {
         translation: {
           str_fetchAborted: "the fetch was aborted",
-          str_notFetchingData: "Could not fetch the data",
+          str_notFetchingData: "Meeting data is unavailable.",
           str_loading: "Loading",
           str_chat: "Chat",
           str_lightTheme: "Light Theme",
