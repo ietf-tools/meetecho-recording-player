@@ -7,8 +7,6 @@
 
   input[type="radio"] {
     position: relative;
-    visibility: hidden;
-    width: 2rem;
   }
   
   &__radio {
@@ -21,7 +19,6 @@
     display: flex;
     flex-direction: row;
     position: relative;
-    width: 2rem;
     
     &--youtube {
       .video-stream-selector__icon {
@@ -36,8 +33,6 @@
     background-color: $color-white;
     border-radius: 50%;
     padding: 0.3rem;
-    left: 0px;
-    position: absolute;
     cursor: pointer;
   }
 
