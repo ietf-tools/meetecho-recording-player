@@ -1,49 +1,58 @@
-import React from "react";
+import React, { useCallback } from "react";
 import ReactPlayer from "react-player";
+import { useSelector } from "react-redux";
 
 // styles
 import "./video.scss";
 
-class Video extends React.Component {
-  returnCurrentTimeFromVideo = (data) => {
-    const newTime = Math.trunc(data.playedSeconds);
-    this.props.handleCurrentTime(Number.parseInt(newTime));
-  };
+function VideoComponent({
+  refCallback,
+  currentTime,
+  handleCurrentTime,
+  isPlaying,
+  handlePlay,
+  handlePause,
+  seekTo,
+}) {
+  const { playerUrl } = useSelector((state) => state.sessionUI);
 
-  // Lifecycle method
-  shouldComponentUpdate(nextProps) {
-    return this.props.isPlaying !== nextProps.isPlaying; //this.props.condition !== nextProps.condition;
+  const onProgress = useCallback(
+    (p) => {
+      handleCurrentTime(Math.trunc(p.playedSeconds));
+    },
+    [handleCurrentTime]
+  );
+
+  const onReady = useCallback(() => {
+    seekTo(currentTime);
+  }, [seekTo, currentTime]);
+
+  if (!playerUrl) {
+    return <div>No video available</div>;
   }
 
-  render = () => {
-    return (
-      <div className="video-wrapper section--wrapper">
-        <div className="player-wrapper">
-          <ReactPlayer
-            ref={this.props.refCallback}
-            controls={true}
-            url={`https://www.youtube.com/watch?v=${
-              this.props.data.videos[0].src +
-                "&t=" +
-                this.props.videoStartTimeFromQuery || "0s"
-            }`}
-            width={"100%"}
-            height={"100%"}
-            pip={true}
-            onProgress={this.returnCurrentTimeFromVideo}
-            onPlay={this.props.handlePlay}
-            onPause={this.props.handlePause}
-            playing={this.props.isPlaying}
-            onReady={() => {
-              if (this.props.isPlaying) {
-                this.props.seekTo(this.props.currentTime);
-              }
-            }}
-          />
-        </div>
+  return (
+    <div className="video-wrapper section--wrapper">
+      <div className="player-wrapper">
+        <ReactPlayer
+          ref={refCallback}
+          url={playerUrl}
+          controls
+          width="100%"
+          height="100%"
+          pip
+          playing={isPlaying}
+          onPlay={handlePlay}
+          onPause={handlePause}
+          onProgress={onProgress}
+          onReady={onReady}
+        />
       </div>
-    );
-  };
+    </div>
+  );
 }
 
+const Video = React.memo(VideoComponent);
+
+Video.displayName = "Video";
 export default Video;

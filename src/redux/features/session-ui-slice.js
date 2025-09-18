@@ -1,36 +1,71 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-// Function to check if the Dark Mode should be enabled based on the time of the day
 let darkModeFlag = "";
 
 function setDefaultThemeBasedOnTheHourOfTheDay() {
-  var d = new Date();
-  // The getHours() method returns the hour (from 0 to 23) of the specified date and time.
-  var currentHour = d.getHours();
-
-  // The dark theme load early morning and night, The light theme load morning and evening
+  const d = new Date();
+  const currentHour = d.getHours();
   darkModeFlag = currentHour >= 19 || currentHour <= 6 ? true : false;
 }
 
 setDefaultThemeBasedOnTheHourOfTheDay();
 
-// Initial State
 const initialState = {
   isDarkThemeEnabled: darkModeFlag,
+  selectedVideoType: undefined,
+  selectedVideoSrc: undefined,
+  selectedVideoStart: 0,
+  playerUrl: undefined,
+  videoStartTimeFromQuery: undefined,
 };
+
+function buildPlayerUrl({ type, src, start, videoStartTimeFromQuery }) {
+  switch (type) {
+    case 1:
+      return `${src}`;
+    case 2:
+      return `https://www.youtube.com/watch?v=${src}&t=${
+        videoStartTimeFromQuery || `${start}s`
+      }`;
+    case 3:
+      return `https://videodelivery.net/${src}/manifest/video.m3u8`;
+    default:
+      console.warn(`Unknown video type: ${type}`);
+      return;
+  }
+}
 
 export const sessionUISlice = createSlice({
   name: "sessionUI",
   initialState,
   reducers: {
-    // Theme
+    setVideo: (state, action) => {
+      const { type, src, start = 0, videoStartTimeFromQuery } = action.payload;
+      state.selectedVideoType = type;
+      state.selectedVideoSrc = src;
+      state.selectedVideoStart = start;
+      state.videoStartTimeFromQuery = videoStartTimeFromQuery;
+      state.playerUrl = buildPlayerUrl({ type, src, start, videoStartTimeFromQuery });
+    },
+    setVideoType: (state, action) => {
+      const { type, src, start = 0 } = action.payload;
+      state.selectedVideoType = type;
+      state.selectedVideoSrc = src;
+      state.selectedVideoStart = start;
+      state.playerUrl = buildPlayerUrl({
+        type,
+        src,
+        start,
+        videoStartTimeFromQuery: state.videoStartTimeFromQuery,
+      });
+    },
     toggleTheme: (state) => {
       state.isDarkThemeEnabled = !state.isDarkThemeEnabled;
     },
   },
 });
 
-// Action creators are generated for each case reducer function
-export const { toggleTheme } = sessionUISlice.actions;
+export const { toggleTheme, setVideo, setVideoType } =
+  sessionUISlice.actions;
 
 export default sessionUISlice.reducer;

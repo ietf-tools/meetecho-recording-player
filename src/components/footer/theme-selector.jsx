@@ -3,7 +3,7 @@ import { toggleTheme } from "~/redux/features/session-ui-slice";
 import { useTranslation } from "react-i18next";
 
 // styles
-import "./theme-selector.scss";
+import "./toggle-selector.scss";
 
 // Icons
 import iconModeDark from "~/assets/images/icon--mode-dark.svg";
@@ -18,7 +18,7 @@ export default function ThemeSelector() {
   );
 
   return (
-    <div className="theme-selector">
+    <div className="toggle-selector">
       <div className="mode-toggle">
         <img
           onClick={() => dispatch(toggleTheme())}

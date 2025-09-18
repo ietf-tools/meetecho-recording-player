@@ -46,8 +46,8 @@ wihch specifies the subdirectories that need to be available:
   "start_datetime": "2021-11-08T12:00:00Z",
   "videos": [
     {
-      "type": 2, 				// video hosted on YouTube
-      "src": "Vk2n08pnrXs"		// YouTube video id
+      "type": 2, 				// 1 = video hosted on the local file system; 2 = video hosted on YouTube; 3 = video hosted on CloudFlare Stream
+      "src": "Vk2n08pnrXs"		// file path | YouTube video id | CloudFlare Stream video id
     }
   ],
   "messages": [					// chat messages
