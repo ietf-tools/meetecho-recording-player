@@ -17,6 +17,8 @@ import {
   updateTranscriptError,
 } from "~/redux/features/transcript-slice";
 
+import { setVideo } from "./redux/features/session-ui-slice";
+
 // Components
 import ConditionalWrapper from "~/components/conditional-wrapper";
 import Video from "~/components/video/video";
@@ -45,6 +47,7 @@ export default function App() {
   const sessionUrlToFetch = sessionDataFolder + "/" + sessionName;
   const transcriptUrlToFetch = transcriptDataFolder + "/" + sessionName;
   const pollsUrlToFetch = pollsDataFolder + "/" + sessionName;
+
   // Checking if there is a Video Starting Time passed in the "t" query of the URL
   const videoStartTimeFromQuery = urlParams.get("t");
 
@@ -149,6 +152,13 @@ export default function App() {
     });
   };
 
+useEffect(() => {
+  if (sessionData?.videos?.length > 0) {
+    const { type, src, start = 0 } = sessionData.videos[0];
+    dispatch(setVideo({ type, src, start, videoStartTimeFromQuery }));
+  }
+}, [sessionData, dispatch, videoStartTimeFromQuery]);
+
   // Rendering App Component
   return (
     <div
@@ -181,8 +191,6 @@ export default function App() {
             <>
               <div className="Video" ref={videoContainerRef}>
                 <Video
-                  data={sessionData}
-                  videoStartTimeFromQuery={videoStartTimeFromQuery}
                   refCallback={videoElement}
                   currentTime={currentTime}
                   handleCurrentTime={handleCurrentTime}
@@ -227,6 +235,7 @@ export default function App() {
             seekTo={seekTo}
             showChat={showChat}
             handleToggleComponents={handleToggleComponents}
+            sessionData={sessionData}
           />
         </div>
       )}

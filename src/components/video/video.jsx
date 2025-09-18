@@ -1,12 +1,11 @@
 import React, { useCallback } from "react";
 import ReactPlayer from "react-player";
+import { useSelector } from "react-redux";
 
 // styles
 import "./video.scss";
 
 function VideoComponent({
-  data,
-  videoStartTimeFromQuery = "0s",
   refCallback,
   currentTime,
   handleCurrentTime,
@@ -15,31 +14,7 @@ function VideoComponent({
   handlePause,
   seekTo,
 }) {
-  const { type, src, start = 0 } = data.videos[0];
-
-  // build the URL (or embed config) depending on type
-  let playerUrl;
-  switch (type) {
-    case 1:
-      // static file, e.g., videos/myfile.mp4
-      playerUrl = `${src}`;
-      break;
-
-    case 2:
-      // YouTube
-      playerUrl = `https://www.youtube.com/watch?v=${src}&t=${videoStartTimeFromQuery || `${start}s`}`;
-      break;
-
-    case 3:
-      // Cloudflare Stream HLS manifest (ReactPlayer can play HLS out of the box)
-      // src is the Cloudflare Stream ID, e.g. "6b9e68b07dfee8cc2d116e4c51d6a957"
-
-      playerUrl = `https://videodelivery.net/${src}/manifest/video.m3u8`;
-      break;
-
-    default:
-      throw new Error(`Unknown video type: ${type}`);
-  }
+  const { playerUrl } = useSelector((state) => state.sessionUI);
 
   const onProgress = useCallback(
     (p) => {
@@ -49,8 +24,12 @@ function VideoComponent({
   );
 
   const onReady = useCallback(() => {
-    if (isPlaying) seekTo(currentTime);
-  }, [isPlaying, seekTo, currentTime]);
+    seekTo(currentTime);
+  }, [seekTo, currentTime]);
+
+  if (!playerUrl) {
+    return <div>No video available</div>;
+  }
 
   return (
     <div className="video-wrapper section--wrapper">
@@ -73,10 +52,7 @@ function VideoComponent({
   );
 }
 
-const Video = React.memo(
-  VideoComponent,
-  (prev, next) => prev.isPlaying === next.isPlaying
-);
+const Video = React.memo(VideoComponent);
 
 Video.displayName = "Video";
 export default Video;

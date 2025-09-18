@@ -2,6 +2,7 @@
 import MediaControls from "./media-controls";
 import MobileLayoutToggleButton from "./mobile-layout-toggle-button";
 import ThemeSelector from "./theme-selector";
+import VideoStreamSelector from "./video-stream-selector";
 import Logo from "./logo";
 
 // Styles
@@ -18,9 +19,12 @@ function Footer({
   seekTo,
   showChat,
   handleToggleComponents,
+  sessionData,
 }) {
   return (
     <footer className="Footer section--wrapper">
+      <VideoStreamSelector sessionData={sessionData} />
+
       <MediaControls
         videoDuration={videoDuration}
         handlePlay={handlePlay}

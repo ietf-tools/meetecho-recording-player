@@ -1,6 +1,6 @@
 @use "~/styles/_variables.scss" as *;
 
-.theme-buttons div {
+.toggle-buttons div {
   display: inline-block;
   width: 20px;
   height: 20px;
@@ -13,7 +13,6 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  padding-left: $padding--desktop;
   position: relative;
 
   img {
@@ -33,6 +32,10 @@
     bottom: -2.2rem;
     transition: all 0.2s;
     width: 7rem;
+
+    &--video {
+     left: 0.3rem;
+    }
   }
 }
 

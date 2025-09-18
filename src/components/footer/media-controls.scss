@@ -17,6 +17,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    gap: calc($padding--desktop / 2);
   }
 }
 
@@ -25,7 +26,6 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  padding-right: $padding--desktop;
 
   img {
     width: 2rem;
