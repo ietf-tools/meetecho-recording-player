@@ -5,7 +5,7 @@ compatibility_date = "2024-08-21"
 compatibility_flags = ["nodejs_compat"]
 
 r2_buckets = [
-  { binding = "SESSIONS_BUCKET", bucket_name = "meetecho-sessions", preview_bucket_name = "" }
+  { binding = "SESSIONS_BUCKET", bucket_name = "meetecho-sessions" }
 ]
 
 # Automatically place your workloads in an optimal location to minimize latency.
