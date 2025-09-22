@@ -1,0 +1,14 @@
+name: Deploy Worker
+on:
+  workflow_dispatch:
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build & Deploy Worker
+        uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CF_WORKER_DEPLOY_TOKEN }}
+          accountId: ${{ secrets.CF_WORKER_DEPLOY_ACCOUNT_ID }}
