@@ -4,6 +4,7 @@ on:
 jobs:
   deploy:
     runs-on: ubuntu-latest
+    environment: deploy
     timeout-minutes: 20
     steps:
       - uses: actions/checkout@v4
