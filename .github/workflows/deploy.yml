@@ -11,5 +11,6 @@ jobs:
       - name: Build & Deploy Worker
         uses: cloudflare/wrangler-action@v3
         with:
+          workingDirectory: "worker"
           apiToken: ${{ secrets.CF_WORKER_DEPLOY_TOKEN }}
           accountId: ${{ secrets.CF_WORKER_DEPLOY_ACCOUNT_ID }}
