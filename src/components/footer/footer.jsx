@@ -4,6 +4,7 @@ import MobileLayoutToggleButton from "./mobile-layout-toggle-button";
 import ThemeSelector from "./theme-selector";
 import VideoStreamSelector from "./video-stream-selector";
 import Logo from "./logo";
+import { useMediaQuery } from "react-responsive";
 
 // Styles
 import "./footer.scss";
@@ -21,6 +22,7 @@ function Footer({
   handleToggleComponents,
   sessionData,
 }) {
+  const isTabletOrMobile = useMediaQuery({ query: "(max-width: 1224px)" });
   return (
     <footer className="Footer section--wrapper">
       <VideoStreamSelector sessionData={sessionData} />
@@ -43,7 +45,7 @@ function Footer({
 
       <ThemeSelector />
 
-      <Logo />
+      {!isTabletOrMobile && <Logo />}
     </footer>
   );
 }
