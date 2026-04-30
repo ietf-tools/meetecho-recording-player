@@ -152,6 +152,56 @@ export default function App() {
     });
   };
 
+  const copyTextWithFallback = async (text) => {
+    if (navigator.clipboard?.writeText) {
+      await navigator.clipboard.writeText(text);
+      return true;
+    }
+
+    const textarea = document.createElement("textarea");
+    textarea.value = text;
+    textarea.setAttribute("readonly", "");
+    textarea.style.position = "fixed";
+    textarea.style.left = "-9999px";
+    document.body.append(textarea);
+    textarea.select();
+
+    const copySucceeded = document.execCommand("copy");
+    textarea.remove();
+    return copySucceeded;
+  };
+
+  // Share video at current Location
+  const handleShare = async () => {
+    try {
+      // Create a URL object from the current window location
+      const url = new URL(window.location.href);
+
+      // Convert currentTime to an integer
+      const timeInSeconds = Math.floor(currentTime);
+
+      // Safely set or update the 't' query parameter
+      url.searchParams.set("t", timeInSeconds);
+
+      const shareUrl = url.toString();
+      const copied = await copyTextWithFallback(shareUrl);
+
+      if (copied) {
+        alert(`${t("str_urlCopiedToClipboard", "URL copied to clipboard!")}\n\n${shareUrl}`);
+      } else {
+        window.prompt(t("str_copyThisLink", "Copy this link:"), shareUrl);
+      }
+    } catch (error) {
+      console.error("Failed to copy link", error);
+      const fallbackUrl = new URL(window.location.href);
+      fallbackUrl.searchParams.set("t", Math.floor(currentTime));
+      window.prompt(
+        t("str_copyThisLink", "Copy this URL:"),
+        fallbackUrl.toString(),
+      );
+    }
+  };
+
 useEffect(() => {
   if (sessionData?.videos?.length > 0) {
     const { type, src, start = 0 } = sessionData.videos[0];
@@ -230,6 +280,7 @@ useEffect(() => {
             handlePause={handlePause}
             handlePlayPause={handlePlayPause}
             handleCurrentTime={handleCurrentTime}
+            handleShare={handleShare}
             isPlaying={isPlaying}
             currentTime={currentTime}
             seekTo={seekTo}
