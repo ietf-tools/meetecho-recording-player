@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect, useCallback } from "react";
 import { useFetch } from "~/hooks/use-fetch";
 import { useMediaQuery } from "react-responsive";
 import { useSelector, useDispatch } from "react-redux";
@@ -113,9 +113,9 @@ export default function App() {
   );
 
   // State Handlers
-  const handleCurrentTime = (time) => {
+  const handleCurrentTime = useCallback((time) => {
     setCurrentTime(time);
-  };
+  }, []);
 
   const handlePlay = () => {
     setIsPlaying(true);
@@ -136,10 +136,10 @@ export default function App() {
   // Video Player
   const videoElement = useRef(null);
 
-  const seekTo = (time) => {
+  const seekTo = useCallback((time) => {
     videoElement.current?.seekTo(time);
     setIsPlaying(true);
-  };
+  }, []);
 
   // Video Scroll Into View
   const videoContainerRef = useRef(null);

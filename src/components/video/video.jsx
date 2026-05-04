@@ -24,6 +24,11 @@ function VideoComponent({
   // 2. Add a ref to ensure we only jump to the shared time ONCE on the very first load
   const hasSeekedOnLoad = useRef(false);
   const hasAppliedSharedTime = useRef(false);
+  const currentTimeRef = useRef(currentTime);
+
+  useEffect(() => {
+    currentTimeRef.current = currentTime;
+  }, [currentTime]);
 
   useEffect(() => {
     hasSeekedOnLoad.current = false;
@@ -51,10 +56,10 @@ function VideoComponent({
     }
     // 4. Otherwise, fallback to the default behavior
     else if (!hasSeekedOnLoad.current) {
-      seekTo(currentTime);
+      seekTo(currentTimeRef.current);
       hasSeekedOnLoad.current = true;
     }
-  }, [seekTo, currentTime, videoStartTimeFromQuery]);
+  }, [seekTo, videoStartTimeFromQuery]);
 
   if (!playerUrl) {
     return <div>No video available</div>;
