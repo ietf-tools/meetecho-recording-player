@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect, useCallback } from "react";
 import { useFetch } from "~/hooks/use-fetch";
 import { useMediaQuery } from "react-responsive";
 import { useSelector, useDispatch } from "react-redux";
@@ -100,6 +100,8 @@ export default function App() {
   // Video Timer State
   const [currentTime, setCurrentTime] = useState(0);
   const [isPlaying, setIsPlaying] = useState(false);
+  const [shareNotice, setShareNotice] = useState("");
+  const [shareLinkOverlay, setSharLinkOverlay] = useState("");
 
   // Components State, in the mobile version the default panel is the Chat
   const [showChat, setShowChat] = useState(true);
@@ -113,9 +115,9 @@ export default function App() {
   );
 
   // State Handlers
-  const handleCurrentTime = (time) => {
+  const handleCurrentTime = useCallback((time) => {
     setCurrentTime(time);
-  };
+  }, []);
 
   const handlePlay = () => {
     setIsPlaying(true);
@@ -136,13 +138,14 @@ export default function App() {
   // Video Player
   const videoElement = useRef(null);
 
-  const seekTo = (time) => {
+  const seekTo = useCallback((time) => {
     videoElement.current?.seekTo(time);
     setIsPlaying(true);
-  };
+  }, []);
 
   // Video Scroll Into View
   const videoContainerRef = useRef(null);
+  const shareNoticeTimerRef = useRef();
 
   const handleScrollVideoIntoView = () => {
     videoContainerRef.current?.scrollIntoView({
@@ -150,6 +153,81 @@ export default function App() {
       block: "end",
       inline: "nearest",
     });
+  };
+
+  const copyTextWithFallback = async (text) => {
+    if (navigator.clipboard?.writeText) {
+      await navigator.clipboard.writeText(text);
+      return true;
+    }
+
+    const textarea = document.createElement("textarea");
+    textarea.value = text;
+    textarea.setAttribute("readonly", "");
+    textarea.style.position = "fixed";
+    textarea.style.left = "-9999px";
+    document.body.append(textarea);
+    textarea.select();
+
+    const copySucceeded = document.execCommand("copy");
+    textarea.remove();
+    return copySucceeded;
+  };
+
+  const showShareNotice = useCallback((message) => {
+    setShareNotice(message);
+
+    if (shareNoticeTimerRef.current) {
+      window.clearTimeout(shareNoticeTimerRef.current);
+    }
+
+    shareNoticeTimerRef.current = window.setTimeout(() => {
+      setShareNotice("");
+    }, 3000);
+  }, []);
+
+  const showShareLinkOverlay = useCallback((link) => {
+    setSharLinkOverlay(link);
+  }, []);
+
+  const closeSharLinkOverlay = useCallback(() => {
+    setSharLinkOverlay("");
+  }, []);
+
+  useEffect(() => {
+    return () => {
+      if (shareNoticeTimerRef.current) {
+        window.clearTimeout(shareNoticeTimerRef.current);
+      }
+    };
+  }, []);
+
+  // Share video at current Location
+  const handleShare = async () => {
+    try {
+      // Create a URL object from the current window location
+      const url = new URL(window.location.href);
+
+      // Convert currentTime to an integer
+      const timeInSeconds = Math.floor(currentTime);
+
+      // Safely set or update the 't' query parameter
+      url.searchParams.set("t", timeInSeconds);
+
+      const shareUrl = url.toString();
+      const copied = await copyTextWithFallback(shareUrl);
+
+      if (copied) {
+        showShareNotice(t("str_urlCopiedToClipboard", "URL copied to clipboard!"));
+      } else {
+        showShareLinkOverlay(shareUrl);
+      }
+    } catch (error) {
+      console.error("Failed to copy link", error);
+      const fallbackUrl = new URL(window.location.href);
+      fallbackUrl.searchParams.set("t", Math.floor(currentTime));
+      showShareLinkOverlay(fallbackUrl.toString());
+    }
   };
 
 useEffect(() => {
@@ -175,7 +253,42 @@ useEffect(() => {
           <h1>{t("str_loading", "Loading")}...</h1>
         </div>
       )}
-      
+
+      {shareNotice && (
+        <div className="notice">
+          <h1>{shareNotice}</h1>
+        </div>
+      )}
+
+      {shareLinkOverlay && (
+        <div className="share-link-overlay" onClick={closeSharLinkOverlay}>
+          <div className="share-link-modal" onClick={(e) => e.stopPropagation()}>
+            <h2>{t("str_copyThisLink", "Copy this link:")}</h2>
+            <div className="share-link-input">
+              <input
+                type="text"
+                value={shareLinkOverlay}
+                readOnly
+                onClick={(e) => e.target.select()}
+              />
+              <button
+                className="share-link-copy-btn"
+                onClick={async () => {
+                  await copyTextWithFallback(shareLinkOverlay);
+                  showShareNotice(t("str_urlCopiedToClipboard", "URL copied to clipboard!"));
+                  closeSharLinkOverlay();
+                }}
+              >
+                {t("str_copy", "Copy")}
+              </button>
+            </div>
+            <button className="share-link-close-btn" onClick={closeSharLinkOverlay}>
+              {t("str_close", "Close")}
+            </button>
+          </div>
+        </div>
+      )}
+
       {sessionData && (
         <div
           className={
@@ -230,6 +343,7 @@ useEffect(() => {
             handlePause={handlePause}
             handlePlayPause={handlePlayPause}
             handleCurrentTime={handleCurrentTime}
+            handleShare={handleShare}
             isPlaying={isPlaying}
             currentTime={currentTime}
             seekTo={seekTo}

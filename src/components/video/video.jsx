@@ -1,6 +1,8 @@
-import React, { useCallback } from "react";
+import React, { useCallback, useEffect, useRef } from "react";
 import ReactPlayer from "react-player";
 import { useSelector } from "react-redux";
+
+import { parseVideoTimeToSeconds } from "~/helpers/time-formatters-helpers";
 
 // styles
 import "./video.scss";
@@ -14,18 +16,50 @@ function VideoComponent({
   handlePause,
   seekTo,
 }) {
-  const { playerUrl } = useSelector((state) => state.sessionUI);
+  // 1. Pull videoStartTimeFromQuery from your Redux state
+  const { playerUrl, videoStartTimeFromQuery } = useSelector(
+    (state) => state.sessionUI,
+  );
+
+  // 2. Add a ref to ensure we only jump to the shared time ONCE on the very first load
+  const hasSeekedOnLoad = useRef(false);
+  const hasAppliedSharedTime = useRef(false);
+  const currentTimeRef = useRef(currentTime);
+
+  useEffect(() => {
+    currentTimeRef.current = currentTime;
+  }, [currentTime]);
+
+  useEffect(() => {
+    hasSeekedOnLoad.current = false;
+  }, [playerUrl]);
 
   const onProgress = useCallback(
     (p) => {
       handleCurrentTime(Math.trunc(p.playedSeconds));
     },
-    [handleCurrentTime]
+    [handleCurrentTime],
   );
 
   const onReady = useCallback(() => {
-    seekTo(currentTime);
-  }, [seekTo, currentTime]);
+    const sharedTimeInSeconds = parseVideoTimeToSeconds(videoStartTimeFromQuery);
+
+    // 3. If there is a shared time in Redux and we haven't seeked yet, jump to it
+    if (
+      !hasSeekedOnLoad.current &&
+      !hasAppliedSharedTime.current &&
+      Number.isFinite(sharedTimeInSeconds)
+    ) {
+      seekTo(sharedTimeInSeconds);
+      hasSeekedOnLoad.current = true;
+      hasAppliedSharedTime.current = true;
+    }
+    // 4. Otherwise, fallback to the default behavior
+    else if (!hasSeekedOnLoad.current) {
+      seekTo(currentTimeRef.current);
+      hasSeekedOnLoad.current = true;
+    }
+  }, [seekTo, videoStartTimeFromQuery]);
 
   if (!playerUrl) {
     return <div>No video available</div>;

@@ -32,7 +32,10 @@ i18next
           str_noOpinion: "No Opinion",
           str_transcriptsUnavailable: "Transcripts not available",
           str_totalParticipants: "Present when poll closed",
-        },
+          str_shareVideo: "Copy URL at current time",
+          str_urlCopiedToClipboard: "URL copied to clipboard!",
+          str_copyThisLink: "Copy this URL:",          str_copy: "Copy",
+          str_close: "Close",        },
       },
     },
   });

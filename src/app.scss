@@ -176,6 +176,124 @@
   }
 }
 
+.notice {
+  position: fixed;
+  left: 50%;
+  bottom: 1rem;
+  transform: translateX(-50%);
+  z-index: 200;
+  pointer-events: none;
+
+  h1 {
+    margin: 0;
+    padding: 0.8rem 1.2rem;
+    font-size: 1rem;
+    font-weight: 700;
+    border-radius: 4px;
+    color: $color-white;
+    background-color: rgba(33, 37, 41, 0.95);
+  }
+}
+
+.share-link-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 300;
+}
+
+.share-link-modal {
+  background-color: $color-white;
+  border-radius: 8px;
+  padding: 2rem;
+  max-width: 500px;
+  width: 90%;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+
+  h2 {
+    margin: 0 0 1rem 0;
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: $color-black;
+  }
+}
+
+.share-link-input {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+
+  input {
+    flex: 1;
+    padding: 0.6rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 0.95rem;
+    word-break: break-all;
+  }
+
+  button {
+    padding: 0.6rem 1rem;
+    background-color: $color-primary--light;
+    color: $color-white;
+    border: 0;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: 700;
+    transition: background-color 0.2s;
+
+    &:hover {
+      background-color: darken($color-primary--light, 10%);
+    }
+  }
+}
+
+.share-link-close-btn {
+  width: 100%;
+  padding: 0.6rem;
+  background-color: #e9ecef;
+  color: $color-black;
+  border: 0;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: 700;
+  transition: background-color 0.2s;
+
+  &:hover {
+    background-color: #dee2e6;
+  }
+}
+
+.App.theme--dark .share-link-modal {
+  background-color: #212529;
+  color: $color-white;
+
+  h2 {
+    color: $color-white;
+  }
+
+  input {
+    background-color: #2d3139;
+    color: $color-white;
+    border-color: #495057;
+  }
+}
+
+.App.theme--dark .share-link-close-btn {
+  background-color: #495057;
+  color: $color-white;
+
+  &:hover {
+    background-color: #5a6268;
+  }
+}
+
 .loading {
   background-color: $color-primary--light;
 

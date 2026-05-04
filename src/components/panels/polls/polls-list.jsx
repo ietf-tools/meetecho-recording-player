@@ -7,12 +7,15 @@ import "./polls-list.scss";
 
 const Polls = ({ seekTo, currentTime, handleScrollVideoIntoView }) => {
   const { t } = useTranslation();
+  const pollsData = useSelector((state) => state.pollsData.polls);
   const isPollsLoading = useSelector((state) => state.pollsData.isPollsLoading);
   const isPollsError = useSelector((state) => state.pollsData.isPollsError);
+  const hasPolls = Array.isArray(pollsData) && pollsData.length > 0;
+  const shouldShowFallback = !isPollsLoading && (isPollsError || !hasPolls);
 
   return (
     <section className="Polls">
-      {isPollsError && (
+      {shouldShowFallback && (
         <div className="panel-error">
           <h2>{t("str_pollsUnavailable", "Polls not available")}</h2>
         </div>
@@ -24,11 +27,13 @@ const Polls = ({ seekTo, currentTime, handleScrollVideoIntoView }) => {
         </div>
       )}
 
-      <Poll
-        seekTo={seekTo}
-        currentTime={currentTime}
-        handleScrollVideoIntoView={handleScrollVideoIntoView}
-      />
+      {hasPolls && !isPollsError && (
+        <Poll
+          seekTo={seekTo}
+          currentTime={currentTime}
+          handleScrollVideoIntoView={handleScrollVideoIntoView}
+        />
+      )}
     </section>
   );
 };

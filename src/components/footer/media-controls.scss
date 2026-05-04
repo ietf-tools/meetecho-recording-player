@@ -21,6 +21,59 @@
   }
 }
 
+.share-btn {
+  transition: all 0.2s;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: $color-black;
+  position: relative;
+  border: 0;
+  background: transparent;
+  padding: 0;
+  cursor: pointer;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+
+  svg {
+    width: 2rem;
+    height: 2rem;
+    cursor: pointer;
+  }
+
+  &:focus-visible {
+    outline: 2px solid currentColor;
+    outline-offset: 2px;
+  }
+}
+
+.share-btn__tooltip {
+  opacity: 0;
+  position: absolute;
+  bottom: -3.2rem;
+  left: -3rem;
+  transition: all 0.2s;
+  width: 8rem;
+  pointer-events: none;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .share-btn:hover .share-btn__tooltip {
+    opacity: 1;
+  }
+}
+
+.share-btn:focus-visible .share-btn__tooltip {
+  opacity: 1;
+}
+
+@media (hover: none) and (pointer: coarse) {
+  .share-btn__tooltip {
+    display: none;
+  }
+}
+
+
 .play-pause-btn {
   transition: all 0.2s;
   display: flex;
@@ -40,7 +93,8 @@
   }
 
   .controls-wrapper .controls {
-    padding: 0;
+    width: auto;
+    justify-content: space-around;
   }
 }
 
@@ -132,6 +186,17 @@
   }
 }
 
+// Mobile
+@media screen and (max-width: 768px) {
+  .progress-bar__wrapper {
+    display: none;
+  }
+
+  .controls {
+    justify-content: space-between;
+  }
+}
+
 /* DARK MODE */
 .App.theme--dark .play-pause-btn svg {
   color: $light-theme--element-bg;
@@ -151,4 +216,8 @@
 
 .App.theme--dark .progress-bar__time {
   color: $color-black;
+}
+
+.App.theme--dark .share-btn {
+  color: $color-white;
 }
